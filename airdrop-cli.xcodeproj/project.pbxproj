@@ -21,7 +21,7 @@
 		F82D7D7D1633D84A00F553DC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "Terminal Share/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		F82D7D7E1633D84A00F553DC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Terminal Share/main.m"; sourceTree = SOURCE_ROOT; };
 		F82D7D7F1633D84A00F553DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Terminal Share/Info.plist"; sourceTree = SOURCE_ROOT; };
-		F8DB9E611633B53F009D6470 /* terminal-share.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "terminal-share.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8DB9E611633B53F009D6470 /* airdrop-cli.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "airdrop-cli.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8DB9E651633B53F009D6470 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F8DB9E681633B53F009D6470 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F8DB9E691633B53F009D6470 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -74,7 +74,7 @@
 		F8DB9E621633B53F009D6470 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8DB9E611633B53F009D6470 /* terminal-share.app */,
+				F8DB9E611633B53F009D6470 /* airdrop-cli.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,9 +112,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F8DB9E601633B53F009D6470 /* terminal-share */ = {
+		F8DB9E601633B53F009D6470 /* airdrop-cli */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8DB9E7F1633B540009D6470 /* Build configuration list for PBXNativeTarget "terminal-share" */;
+			buildConfigurationList = F8DB9E7F1633B540009D6470 /* Build configuration list for PBXNativeTarget "airdrop-cli" */;
 			buildPhases = (
 				F8DB9E5D1633B53F009D6470 /* Sources */,
 				F8DB9E5E1633B53F009D6470 /* Frameworks */,
@@ -124,9 +124,9 @@
 			);
 			dependencies = (
 			);
-			name = "terminal-share";
+			name = "airdrop-cli";
 			productName = "Terminal Share";
-			productReference = F8DB9E611633B53F009D6470 /* terminal-share.app */;
+			productReference = F8DB9E611633B53F009D6470 /* airdrop-cli.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -137,12 +137,18 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Mattt Thompson";
+				TargetAttributes = {
+					F8DB9E601633B53F009D6470 = {
+						DevelopmentTeam = 4Y3EZG8V7L;
+					};
+				};
 			};
-			buildConfigurationList = F8DB9E5B1633B53F009D6470 /* Build configuration list for PBXProject "Terminal Share" */;
+			buildConfigurationList = F8DB9E5B1633B53F009D6470 /* Build configuration list for PBXProject "airdrop-cli" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F8DB9E561633B53F009D6470;
@@ -150,7 +156,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F8DB9E601633B53F009D6470 /* terminal-share */,
+				F8DB9E601633B53F009D6470 /* airdrop-cli */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +256,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4Y3EZG8V7L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Terminal Share/Prefix.pch";
 				INFOPLIST_FILE = "Terminal Share/Info.plist";
@@ -260,6 +267,7 @@
 					__info_plist,
 					"\"$(INFOPLIST_FILE)\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.techydude3.airdrop-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -270,6 +278,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4Y3EZG8V7L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Terminal Share/Prefix.pch";
 				INFOPLIST_FILE = "Terminal Share/Info.plist";
@@ -280,6 +289,7 @@
 					__info_plist,
 					"\"$(INFOPLIST_FILE)\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.techydude3.airdrop-cli";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -288,7 +298,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F8DB9E5B1633B53F009D6470 /* Build configuration list for PBXProject "Terminal Share" */ = {
+		F8DB9E5B1633B53F009D6470 /* Build configuration list for PBXProject "airdrop-cli" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8DB9E7D1633B540009D6470 /* Debug */,
@@ -297,7 +307,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8DB9E7F1633B540009D6470 /* Build configuration list for PBXNativeTarget "terminal-share" */ = {
+		F8DB9E7F1633B540009D6470 /* Build configuration list for PBXNativeTarget "airdrop-cli" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8DB9E801633B540009D6470 /* Debug */,

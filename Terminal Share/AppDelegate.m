@@ -27,29 +27,17 @@
 static void PrintHelpBanner() {
     NSMutableArray *mutableLines = [NSMutableArray array];
     NSMutableDictionary *mutableArguments = [NSMutableDictionary dictionary];
-    mutableArguments[@"service"] = @"A short string corresponding to the name of a particular NSSharingService to be used. Available values:\n\t\t\t\ttwitter, sinaweibo, email, message, airdrop, iphoto, aperture, facebook, flickr, vimeo, youku, tudou\n";
-    mutableArguments[@"text"] = @"Text to be shared (optional)";
-    mutableArguments[@"image"] = @"Image to be shared (optional)";
-    mutableArguments[@"video"] = @"Video to be shared (optional)";
-    mutableArguments[@"url"] = @"URL to be shared (optional)";
     
-    [mutableLines addObjectsFromArray:@[@"terminal-share", @"", @"A command-line interface to the Mac OS X Sharing Services", @""]];
+    [mutableLines addObjectsFromArray:@[@"airdrop-cli", @"", @"A command-line interface for Airdrop", @""]];
     
-    [mutableLines addObjectsFromArray:@[@"Usage:", @"\t$ terminal-share -service NAME [-text text] [-image /path/to/image] [-video /path/to/video] [-url \"http://example.com\"]", @""]];
+    [mutableLines addObjectsFromArray:@[@"Usage:", @"\t$ airdrop-cli /path/to/file1 [/path/to/file2] [/path/to/file3] (etc)", @""]];
     
-    [mutableLines addObjectsFromArray:@[@"Example:", @"\t$terminal-share -service twitter -text \"This was shared from the command-line, courtesy of terminal-share, by @mattt\" -url \"https://github.com/mattt/terminal-share\"", @""]];
-
-    
-    [mutableLines addObject:@"Arguments:"];
-    [@[@"service", @"text", @"image", @"video", @"url"] enumerateObjectsUsingBlock:^(id key, NSUInteger idx, BOOL *stop) {
-        NSString *argument = [key stringByPaddingToLength:8 withString:@" " startingAtIndex:0];
-        NSString *description = [mutableArguments objectForKey:key];
-        [mutableLines addObject:[NSString stringWithFormat:@"\t-%@\t\t%@", argument, description]];
-    }];
     [mutableLines addObject:@""];
 
-    [mutableLines addObjectsFromArray:@[@"Author:", @"\tMattt Thompson <m@mattt.me>", @""]];
+    [mutableLines addObjectsFromArray:@[@"Original Author:", @"\tMattt Thompson <m@mattt.me>", @""]];
     [mutableLines addObjectsFromArray:@[@"Website:", @"\thttps://github.com/mattt", @""]];
+    [mutableLines addObjectsFromArray:@[@"Fork Author:", @"\tJohn Papetti <techydude3@aol.com>", @""]];
+    [mutableLines addObjectsFromArray:@[@"Website:", @"\thttps://github.com/jpapetti0713", @""]];
 
     [mutableLines enumerateObjectsUsingBlock:^(id line, NSUInteger idx, BOOL *stop) {
         printf("%s\n", [line UTF8String]);
@@ -57,66 +45,27 @@ static void PrintHelpBanner() {
 }
 
 static NSString * NSSharingServiceNameFromDefaults(NSUserDefaults *defaults) {
-    NSString *service = [[defaults objectForKey:@"service"] lowercaseString];
-    
-    if ([service isEqualToString:@"twitter"]) {
-        return NSSharingServiceNamePostOnTwitter;
-    } else if ([service isEqualToString:@"sinaweibo"]) {
-        return NSSharingServiceNamePostOnSinaWeibo;
-    } else if ([service isEqualToString:@"email"]) {
-        return NSSharingServiceNameComposeEmail;
-    } else if ([service isEqualToString:@"message"]) {
-        return NSSharingServiceNameComposeMessage;
-    } else if ([service isEqualToString:@"airdrop"]) {
-        return NSSharingServiceNameSendViaAirDrop;
-    } else if ([service isEqualToString:@"readinglist"]) {
-        return NSSharingServiceNameAddToSafariReadingList;
-    } else if ([service isEqualToString:@"iphoto"]) {
-        return NSSharingServiceNameAddToIPhoto;
-    } else if ([service isEqualToString:@"aperture"]) {
-        return NSSharingServiceNameAddToAperture;
-    } else if ([service isEqualToString:@"facebook"]) {
-        return NSSharingServiceNamePostOnFacebook;
-    } else if ([service isEqualToString:@"flickr"]) {
-        return NSSharingServiceNamePostImageOnFlickr;
-    } else if ([service isEqualToString:@"vimeo"]) {
-        return NSSharingServiceNamePostVideoOnVimeo;
-    } else if ([service isEqualToString:@"youku"]) {
-        return NSSharingServiceNamePostVideoOnYouku;
-    } else if ([service isEqualToString:@"tudou"]) {
-        return NSSharingServiceNamePostVideoOnTudou;
-    }
-    
-    return nil;
+    return NSSharingServiceNameSendViaAirDrop;
 }
 
 static NSArray * NSSharingServiceItemsFromDefaults(NSUserDefaults *defaults) {
     NSMutableArray *mutableItems = [NSMutableArray array];
-    if ([defaults objectForKey:@"text"]) {
-        [mutableItems addObject:[defaults objectForKey:@"text"]];
-    }
     
-    if ([defaults objectForKey:@"image"]) {
-        NSImage *image = [[NSImage alloc] initWithContentsOfFile:[defaults objectForKey:@"image"]];
-        if (image) {
-            [mutableItems addObject:image];
+    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+    for (int i = 1; i < [arguments count]; i++){
+        id value = arguments[i];
+        if ([[NSFileManager defaultManager]fileExistsAtPath:value]){
+            NSURL *fileURL = [NSURL fileURLWithPath:value];
+            if (fileURL) {
+                [mutableItems addObject:fileURL];
+            }
+
+        }
+        else{
+            NSLog(@"WARNING: \"%@\" is either not valid or found.",value);
+
         }
     }
-    
-    if ([defaults objectForKey:@"url"]) {
-        NSURL *url = [NSURL URLWithString:[defaults objectForKey:@"url"]];
-        if (url) {
-            [mutableItems addObject:url];
-        }
-    }
-    
-    if ([defaults objectForKey:@"video"]) {
-        NSURL *videoURL = [NSURL fileURLWithPath:[defaults objectForKey:@"video"]];
-        if (videoURL) {
-            [mutableItems addObject:videoURL];
-        }
-    }
-    
     return mutableItems;
 }
 
