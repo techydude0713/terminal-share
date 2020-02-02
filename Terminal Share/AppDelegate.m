@@ -26,7 +26,6 @@
 
 static void PrintHelpBanner() {
     NSMutableArray *mutableLines = [NSMutableArray array];
-    NSMutableDictionary *mutableArguments = [NSMutableDictionary dictionary];
     
     [mutableLines addObjectsFromArray:@[@"airdrop-cli", @"", @"A command-line interface for Airdrop", @""]];
     
@@ -44,14 +43,10 @@ static void PrintHelpBanner() {
     }];
 }
 
-static NSString * NSSharingServiceNameFromDefaults(NSUserDefaults *defaults) {
-    return NSSharingServiceNameSendViaAirDrop;
-}
-
-static NSArray * NSSharingServiceItemsFromDefaults(NSUserDefaults *defaults) {
+static NSArray * NSSharingServiceItemsFromDefaults(NSArray *arguments) {
     NSMutableArray *mutableItems = [NSMutableArray array];
     
-    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+    
     for (int i = 1; i < [arguments count]; i++){
         id value = arguments[i];
         if ([[NSFileManager defaultManager]fileExistsAtPath:value]){
@@ -66,7 +61,14 @@ static NSArray * NSSharingServiceItemsFromDefaults(NSUserDefaults *defaults) {
 
         }
     }
-    return mutableItems;
+    if (mutableItems.count){
+        return mutableItems;
+    }
+    else{
+        NSLog(@"ERROR: All files failed to send.");
+        exit(EXIT_FAILURE);
+    }
+    
 }
 
 @interface AppDelegate () <NSSharingServiceDelegate>
@@ -75,17 +77,15 @@ static NSArray * NSSharingServiceItemsFromDefaults(NSUserDefaults *defaults) {
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    NSString *sharingServiceName = NSSharingServiceNameFromDefaults(defaults);
-    if (!sharingServiceName) {
+    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+    if (arguments.count <= 1) {
         PrintHelpBanner();
         exit(EXIT_FAILURE);
     }
     
-    NSSharingService *sharingService = [NSSharingService sharingServiceNamed:sharingServiceName];
+    NSSharingService *sharingService = [NSSharingService sharingServiceNamed:NSSharingServiceNameSendViaAirDrop];
     sharingService.delegate = self;
-    [sharingService performWithItems:NSSharingServiceItemsFromDefaults(defaults)];
+    [sharingService performWithItems:NSSharingServiceItemsFromDefaults(arguments)];
 }
 
 #pragma mark - ScriptingBridge

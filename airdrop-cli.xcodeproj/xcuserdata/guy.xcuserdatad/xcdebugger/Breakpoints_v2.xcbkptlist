@@ -14,9 +14,25 @@
             filePath = "Terminal Share/AppDelegate.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "NSSharingServiceItemsFromDefaults(defaults)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "NSSharingServiceItemsFromDefaults(arguments)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9258AF85-0536-4A2D-AD8D-5D621681F10C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Terminal Share/AppDelegate.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "NSSharingServiceItemsFromDefaults(arguments)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
